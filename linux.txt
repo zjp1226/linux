@@ -1,0 +1,262 @@
+mkdir	==make directory 创建目录 mkdir data
+cd 	  	==change directory 切换目录 cd data
+touch 	==创建文件 例如：touch oldboy.txt
+vi    	==编辑器，相当于记事本，有编辑功能，但较弱。
+vim   	==复杂编辑器，相当于 emeditor, notepad++
+echo  	==打印输出内容，配合">"或">>" 可以为文件覆盖及追加内容
+		例如：echo "I am studying linux.">>oldboy.txt
+cat	 	==查看内容
+		特殊用法：覆盖或增加多行内容
+		cat >>oldboy.txt<<EOF
+		I am studying ss.
+		EOF
+		EOF 要成对出现，EOF可以被任意成对内容替换
+head	可以显示文件的头几行(默认10行)
+		-n    指定显示的行数	head -n 3 tt.txt
+tail	用以显示文件的末尾几行(默认10行)
+		-n    指定显示的行数
+		-f    追踪显示文件更新(一般用于查看日志,命令不会退出,而是持续显示新加入的内容)
+more	用于翻页显示文件内容(只能向下翻)
+less	用于翻页显示文件内容(可上下翻)
+
+rmdir	删除空目录 
+rm 		删除目录或文件
+		-i 交互式，每删除一个文件或者目录都会询问
+		-r 迭代的删除，用来删除目录
+		-f 强制删除，不输出任何信息
+cp 		复制文件或者目录	cp dd gg
+		常用参数：
+		-r 递归复制整个目录
+		-v 显示详细信息
+mv		移动文件或者目录/或者重命名文件
+		例如：mv gg GG (修改目录的名字)
+			  mv gg GG/ (将目录gg移动到GG中)
+history 显示到目前为止的所有命令
+jobs	显示后台运行的程序信息
+bg		将一个在后台暂停的命令，变成继续执行
+fg		将后台中的命令调至前台继续运行
+^z		可以将一个正在前台执行的命令放到后台，并且暂停
+pwd		打印当前目录
+date	打印当前日期
+		data +%Y-%m-%d
+hwclock	查看硬件时间
+clock
+uptime	查看系统运行时间、当前用户、系统负载
+cal		打印当月日历
+hostname打印主机名称
+uname	打印系统、内核等相关信息
+su		切换用户 su zhp1 
+su -	进入管理员用户（进入根目录打开一个新的shell）
+sudo	以管理员身份运行命令
+exit	退出当前shell
+passwd	修改用户密码
+man 	查看命令的帮助文档	man uptime
+clear	清屏
+lspci	用以查看PCI设备
+		-v    查看详细信息
+lsusb	用以查看USB设备
+		-v    查看详细信息
+lsmod	用以查看加载的模块(驱动)	
+	
+shutdown用以关闭、重启计算机
+		shutdown [-h|-r] 时间
+		-h    关闭计算机
+		-r     重新启动
+		shutdown -h now    立即关机
+		shutdown -h +10     10分钟后关机
+		shutdown -h 23:30   晚上十一点半关机
+		shutdown -r now     立即重启
+poweroff可以立即关闭计算机
+reboot	可以立即重启计算机
+
+zip		用以压缩文件
+		zip filename.zip file1 
+unzip	可以解压缩zip文件
+		unzip filename.zip
+gzip	可以压缩文件
+		gzip filename
+tar		可以归档文件，不压缩
+		tar -cvf out.tar file1 file2 ... 创建归档
+		tar -xvf filename.tar  			 释放归档
+		tar -cvzf out.tar.gz file file1 ... （常用）
+			-z 参数将归档后的归档文件进行gzip压缩以减少大小
+locate	用以快速查找文件、文件夹
+		locate keyword
+		此命令需预先建立数据库，数据库默认每天更新一次，可以使用"updatedb"命令手工建立、更新数据库
+find	可以高级查找文件、文件夹：
+		find . -name *keyword*   在当前目录查找文件名中包含"keyword"的文件 （文件名）
+		find / -name *.conf     在根目录中查找文件名以".conf"结尾的文件		（文件名）
+		find / -perm 777   在根目录中查找权限为"777"的文件 （权限）
+		find / -type d   在根目录中查找类型为"d"(目录)的文件	（文件类型）
+		find . -name "a*" -exec ls -l {}  \;  对查找结果执行 ls -l 命令
+		-name         按名称查找
+		-perm          按权限查找
+		-user            按所有者查找
+		-group         按所属用户组查找
+		-ctime          按创建时间查找
+		-type            按文件类型查找
+		-size             按文件大小查找
+du		显示文件或目录所占用的磁盘空间
+		-h 输出文件系统分区使用的情况，例如：10KB，10MB，10GB等
+		-s 显示文件或整个目录的大小，默认单位是KB
+fdisk	分区命令
+mke2fs	创建文件系统
+		mke2fs -t ext4 /dev/sda1
+		-b	blocksize	设置块大小
+		-c 				检查磁盘是否有坏块
+		-L	label		指定卷标
+		-j				建立文件系统日志
+mkfs.	mke2fs的简化版 缺少一些精细化的操作
+dumpe2fs 查看分区的文件系统信息		
+e2label	给磁盘分区加标签
+fsck	检查磁盘是否有损坏	fsck /dev/sda1	检查前必须先卸载
+		-y 不提示直接进行修复
+		对于识别为文件损坏数据（文件系统无记录），fsck会将该文件放入 lost+found目录
+mount	挂载磁盘分区
+		mount /dev/sda1(磁盘)	/ (挂载目录)
+		-t 指定文件系统类型
+		-o 指定挂载选项 多个参用 ，分割
+		ro,rw	以只读或者读写形式挂载，默认rw
+		sync	代表不使用缓存
+		async	使用缓存 默认
+		noatime	代表每次访问文件时不更新文件访问时间
+		atime	代表每次访问文件时更新文件访问时间
+		remount	重新挂载文件系统
+unmount	卸载挂载 后接设备 或者挂载点都可以 （相当于U盘的弹出）
+
+fuser	查看某些进程在使用文件系统	fuser -m /dev/sda1
+lsof	查看哪些文件正在被使用		lsof /mnt/ (挂载点)
+
+														获取帮助
+-h 或 --help
+man		获取帮助
+		-k 关键字 用来查询包含该关键字的文档
+info	比man更详细
+/usr/share/doc	有所有程序的文档
+														用户、组
+whoami	显示当前用户
+who		显示有哪些用户已经登录系统
+w		显示有哪些用户已经登录系统并其且在干什么
+useradd	创建用户 useradd zjp1
+		该命令执行以下操作：
+		1.在/etc/passwd中添加用户信息
+		2.如果使用passwd命令创建密码，则将密码保存到/etc/shadow中
+		3.为用户创建一个新的家目录/home/zjp1
+		4.将/etc/skel中的文件复制到用户的家目录中 
+		5.建立一个与用户名相同的组，新建用户默认属于这个组
+		-d	家目录
+		-s	登录shell
+		-u 	userid
+		-g 	主组
+		-G	附属组 （最多31个，用","分割）
+usermod	修改用户信息
+		-I	用户名
+		-u	用户ID
+		-d 	家目录
+		-L	锁定
+		-U 	解除锁定
+userdel	删除用户
+		-r	同时删除家目录
+groupadd
+groupmod修改组
+		-n 名
+		-g 用户ID
+groupdel
+															权限
+UGO权限	所属用户	所属组	其他
+
+chown	修改文件所属用户	chowm	用户名 文件或目录
+		-R	对于目录递归的实现
+chgrp	修改所属组
+		-R
+chmod	修改文件权限
+		chmod u+rw test.txt
+		chmod go+r test.txt
+		chmod a-x  test.txt		a表示ugo 所有
+		-R 对目录
+umask	默认权限
+		目录权限	777-umask
+		文件权限	666-umask
+		普通用户 	umask=002	
+		root		umask=022
+特殊权限：		suid 	以文件的所属用户身份执行，					目录:无影响
+				sgid	以文件的所属组身份执行，					目录：该目录中创建的任意文件的所属组与目录相同
+				sticky	无影响(粘贴位)								 目录：对目录拥有写入权限的用户仅可以删除其拥有的文件，无法删除其他用户所拥有的文件
+				
+				
+				chmod u+s test.txt
+				chmod g+s test.txt
+				chmod o+t test.txt
+
+ifconfig查看接口
+		-a 所有的接口
+ifup	启用接口
+ifdown	禁用接口
+setup	配置网络信息
+
+ping	网络连通
+		ping ip(或者域名)
+host 	测试DNS解析
+dig		测试DNS解析
+
+ip route 显示路由表
+traceroute 追踪到达目标地址经过的网络路径
+mtr		网络质量检测
+
+														管道和重定向
+STDIN 标准输入	0
+STDOUT标准输出	1
+STDERR标准错误	2
+>		将标准输出重定向到文件（覆盖）
+>>		将标准输出重定向到文件（追加）
+2>		将标准错误重定向到文件（覆盖）
+2>&1	将STDOUT和STDERR结合
+<		重定向STDIN
+
+|(管道)	将一个命令的标准输出传递给下个命令的标准输入
+
+
+grep	基于关键字搜索文本		grep 'sdf' test.txt
+		-i 忽略大小写
+		-n 显示结果所在行数
+		-v 输出不带关键字的行
+		-Ax 输出时包含结果之后的几行
+		-Bx 输出时包含结果之前的几行
+		
+cut		基于列处理文本		cut -d: -f3 /etc/passwd
+		-d 指定分割符
+		-f 指定输出的列号
+		-c 基于字符进行切割	cut -c2-6 /etc/passwd
+wc		文本统计
+		-l 只统计行数
+		-w 只统计单词
+		-c 只统计字节数
+		-m 只统计字符数
+sort	对文本内容进行排序
+		-r 倒序
+		-n 基于数字
+		-f 忽略大小写
+		-u 删除重复行
+		-t c 使用c作为分隔符为列进行排序
+		-k x 当进行基于指定那个列进行排序
+uniq 	删除相邻的重复行
+diff	比较两个文件的区别
+		-i 忽略大小写
+		-b 忽略空格数量的改变
+		-u 同一显示比较信息
+aspell	拼写检查
+tr		处理文本内容
+		tr -d 'TMD'<test.txt
+		tr 'a-z' 'A-Z' <test.txt
+sed		搜索替换
+		
+
+快捷键：
+TAB		命令、路径补全
+特殊字符命令：
+>		重定向
+>> 		追加重定向
+!!		执行上条命令
+!ca		执行上条以"ca"开头的命令
+^r		查询命令
+firefox &	打开火狐浏览器并放入后台运行
