@@ -260,7 +260,7 @@ delimiter ;
 
 排序：									SELECT * FROM tt ORDER BY c1;
 
- 										SELECT * FROM tt ORDER BY c1 DESC;
+​										SELECT * FROM tt ORDER BY c1 DESC;
 
 创建新用户：								CREATE USER zjp IDENTIFIED BY 'zhuang88';
 

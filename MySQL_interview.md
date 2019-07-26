@@ -946,7 +946,7 @@
 >
 > 原理和Undo Log相反，Redo Log记录的是新数据的备份。在事务提交前，只要将Redo Log持久化即可，不需要将数据持久化。当系统崩溃时，虽然数据没有持久化，但是Redo Log已经持久化。系统可以根据Redo Log的内容，将所有数据恢复到最新的状态。
 
-#### **八、整理时参考的资料**
+## 八、整理时参考的资料
 
 [java团长 数据库整理](http://mp.weixin.qq.com/s?__biz=MzIwMTY0NDU3Nw==&mid=2651936134&idx=1&sn=5213a59104f6d2a90bc18d878cafe417&chksm=8d0f3ac8ba78b3deb2ea3473906a37dd205b6e64bfbebe86cc00108242bfa4c49a7d1e509eca&mpshare=1&scene=1&srcid=0707k8Bdz85tDHyVotxEQ9of#rd)
 
